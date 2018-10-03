@@ -49,3 +49,11 @@
 @interface SPTCollectionArtistModel
 -(id)tracks;
 @end
+
+/* CollectionAlbum */
+@interface SPTCollectionAlbumViewController : SPTViewController
+-(id)albumModel;
+@end
+@interface SPTCollectionAlbumModel
+-(id)tracks;
+@end

@@ -6,9 +6,9 @@ return orig;
 
 void setSongCount(NSInteger songCount, id controller) {
   SPTTableViewOfflineSwitchCell *switchCell = (SPTTableViewOfflineSwitchCell *)[controller offlineSwitchCell];
-	SPTViewOfflineSwitch *view = (SPTViewOfflineSwitch *)[switchCell offlineSwitchView];
-	GLUELabel *label = (GLUELabel *)[view offlineTitle];
-	NSString *originalText = [label text];
+  SPTViewOfflineSwitch *view = (SPTViewOfflineSwitch *)[switchCell offlineSwitchView];
+  GLUELabel *label = (GLUELabel *)[view offlineTitle];
+  NSString *originalText = [label text];
 
   NSRegularExpression *regex = [NSRegularExpression
     regularExpressionWithPattern:@"\\ \\-\\ [0-9]+"
@@ -21,9 +21,9 @@ void setSongCount(NSInteger songCount, id controller) {
     range:NSMakeRange(0, originalText.length)
     withTemplate:@""];
 	
-	NSString *newLabel = [NSString stringWithFormat: @"%@ - %ld", baseText, (long)songCount];
+  NSString *newLabel = [NSString stringWithFormat: @"%@ - %ld", baseText, (long)songCount];
 
-	[label setText:newLabel];
+  [label setText:newLabel];
 }
 
 %hook SPTCollectionSongsViewController
@@ -66,6 +66,20 @@ void setSongCount(NSInteger songCount, id controller) {
 %new
 -(void)updateSongCount {
   NSInteger songCount = [(NSArray *)[(SPTCollectionArtistModel *)[self artistModel] tracks] count];
+  setSongCount(songCount, self);
+}
+%end
+
+%hook SPTCollectionAlbumViewController
+-(void)sb_updateContentInsets {UPDATE(%orig)}
+-(void)albumModelDidUpdate {UPDATE(%orig)}
+-(void)albumModelDidUpdateSessionOfflineStatus {UPDATE(%orig)}
+-(void)offlineSwitchCellDidChangeState:(id)arg1 isOn:(BOOL)arg2 {UPDATE(%orig)}
+-(void)updateHeaderView {UPDATE(%orig)}
+-(void)viewDidLoad {UPDATE(%orig)}
+%new
+-(void)updateSongCount {
+  NSInteger songCount = [(NSArray *)[(SPTCollectionAlbumModel *)[self albumModel] tracks] count];
   setSongCount(songCount, self);
 }
 %end
