@@ -1,7 +1,7 @@
 Package: com.1conan.spotifysongcount
 Name: Spotify Song Count
 Depends: mobilesubstrate, firmware(>=10.0)
-Version: 1.0.1
+Version: 1.2.0
 Architecture: iphoneos-arm
 Description: Add a song count to the spotify app.
 Maintainer: 1Conan
