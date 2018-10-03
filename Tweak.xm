@@ -56,3 +56,16 @@ void setSongCount(NSInteger songCount, id controller) {
   setSongCount(songCount, self);
 }
 %end
+
+%hook SPTCollectionArtistViewController
+-(void)updateHeaderView {UPDATE(%orig)}
+-(void)viewDidLoad {UPDATE(%orig)}
+-(void)artistModelDidUpdate {UPDATE(%orig)}
+-(void)artistModelOfflineStateChanged {UPDATE(%orig)}
+-(void)offlineSwitchCellDidChangeState:(id)arg1 isOn:(BOOL)arg2 {UPDATE(%orig)}
+%new
+-(void)updateSongCount {
+  NSInteger songCount = [(NSArray *)[(SPTCollectionArtistModel *)[self artistModel] tracks] count];
+  setSongCount(songCount, self);
+}
+%end
