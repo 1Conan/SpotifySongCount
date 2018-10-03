@@ -41,6 +41,15 @@
 -(NSInteger)numberOfItems;
 @end
 
+/* CollectionArtist */
+@interface SPTCollectionArtistViewController : SPTViewController
+-(id)artistModel;
+@end
+
+@interface SPTCollectionArtistModel
+-(id)tracks;
+@end
+
 /* CollectionAlbum */
 @interface SPTCollectionAlbumViewController : SPTViewController
 -(id)albumModel;
