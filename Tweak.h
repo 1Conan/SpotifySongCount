@@ -40,3 +40,11 @@
 @interface SPTPlaylistViewModel
 -(NSInteger)numberOfItems;
 @end
+
+/* CollectionAlbum */
+@interface SPTCollectionAlbumViewController : SPTViewController
+-(id)albumModel;
+@end
+@interface SPTCollectionAlbumModel
+-(id)tracks;
+@end
